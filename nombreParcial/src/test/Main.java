@@ -4,6 +4,8 @@
  */
 package test;
 
+import models.*;
+
 /**
  *
  * @author PC
@@ -15,9 +17,7 @@ public class Main {
      */
     public static void main(String[] args) {
         
-          // despues del parcial hacer los ejercicios de logica y smell de chat gpt
-    // TENER EN CUENTA LO DE FINAL Y PONER SETS EN EL CONSTRUCTOR DE CHAT GPT, sino de ultima
-    // crear metodos que validen en el set y constructor... me gusta un poco más esa xd
-    // TENER EN CUENTA LO DEL SWITCH DE TRAER MERCANCIA EN SISTEMAMERCANCIA
+        
+
     }
 }
