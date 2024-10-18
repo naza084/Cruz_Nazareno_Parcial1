@@ -71,12 +71,14 @@ public class Gastronomia extends Servicio {
 
     // Metodo auxiliares
     public void validarPrecio(double precio) throws PrecioInvalidoException {
+        // Verificacion de que el precio no sea negativo o menor a 1.0
         if (precio < 1.0) {
             throw new PrecioInvalidoException("El precio no puede ser 0 o negativo.");
         }
     }
 
     public void validarDiaSemDesc(int dia) throws IllegalArgumentException {
+        // Se verifica que el dia sea valido
         if (dia < 0 || dia > 7) {
             throw new IllegalArgumentException("Dia de la semana invalido.");
         }

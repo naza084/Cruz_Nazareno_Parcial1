@@ -51,7 +51,7 @@ public abstract class Servicio {
     // Metodo auxiliares para validar datos
     public void validarCodigoServicio(String codServicio) throws CodigoInvalidoException {
         if (codServicio.length() != 6) {
-            throw new CodigoInvalidoException("El codigo del servicio debe contener 5 caracteres exactos.");
+            throw new CodigoInvalidoException("El codigo del servicio debe contener 6 caracteres exactos.");
         }
     }
 

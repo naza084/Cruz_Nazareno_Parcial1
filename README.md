@@ -33,6 +33,9 @@ El sistema ofrece las siguientes funcionalidades:
 
 ### 4. Validaciones
 - Manejo de excepciones para situaciones como códigos duplicados, valores inválidos, y violaciones de las restricciones de negocio.
+    #### Excepciones Personalizadas:
+    - CodigoInvalidoException(): Excepción que se lanza al asignar un codigo de servicio con tamaño diferente a 6 caracteres exactos.
+    - PrecioInvaldioException(): Excepción que se lanza al asignar un precio negativo o menor a 1.0
 
 ### 5. Cálculo de Precio Final
 - Método para calcular el precio final del servicio, que incluye todas las promociones y servicios adicionales seleccionados.

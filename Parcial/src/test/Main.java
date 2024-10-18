@@ -74,7 +74,7 @@ public class Main {
         System.out.println("Test 2-2: ");
         try {
             Hospedaje hospedaje1 = new Hospedaje("Cabaña 3 personas", 1500.0, "287282", 10.0, true, LocalDate.now());
-            // No se aplica el descuento al no ser un dia habil
+            // Se aplica el descuento al ser un dia habil
             double precioFinal1 = hospedaje1.calcularPrecioFinal(LocalDate.of(2024, 10, 28));
             System.out.println("El precio final es: " + precioFinal1);
         } catch (CodigoInvalidoException | PrecioInvalidoException | IllegalArgumentException e) {

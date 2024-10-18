@@ -22,7 +22,9 @@ public class Sistema {
     }
 
     // Metodos
-    public Servicio traerServicio(String codServicio) {
+    public Servicio traerServicio(String codServicio) throws ArrayIndexOutOfBoundsException {
+        // Se verifica que la lista no este vacia
+        hayServiciosEnSistema();
         Servicio servicioBuscado = null;
         for (Servicio servicio : this.lstServicio) {
             if (servicio.getCodServicio().equalsIgnoreCase(codServicio)) {
@@ -33,44 +35,40 @@ public class Sistema {
         return servicioBuscado;
     }
 
-    public ArrayList<Servicio> traerServicio(boolean enPromocion) {
+    // Metodo con sobrecarga
+    public ArrayList<Servicio> traerServicio(boolean enPromocion) throws ArrayIndexOutOfBoundsException{
+        // Se verifica que la lista no este vacia
+        hayServiciosEnSistema();
+        
         ArrayList<Servicio> serviciosSegunPromocion = new ArrayList<>();
-        for (Servicio servicio : this.lstServicio) {
-            if (servicio.isEnPromocion() == enPromocion) {
-                serviciosSegunPromocion.add(servicio);
-            }
-        }
+        añadirServiciosEnPromocion(enPromocion, serviciosSegunPromocion);
         return serviciosSegunPromocion;
     }
 
-    public ArrayList<Servicio> traerServicio(boolean enPromocion, LocalDate dia) {
+
+    public ArrayList<Servicio> traerServicio(boolean enPromocion, LocalDate dia) throws ArrayIndexOutOfBoundsException{
+        // Se verifica que la lista no este vacia
+        hayServiciosEnSistema();
+        
         ArrayList<Servicio> serviciosSegunPromocionYFecha = new ArrayList<>();
-        for (Servicio servicio : this.lstServicio) {
-            if (servicio.isEnPromocion() == enPromocion && servicio.getDiaServicio().equals(dia)) {
-                serviciosSegunPromocionYFecha.add(servicio);
-            }
-        }
+        añadirServicioSegunPromocionYDia(enPromocion, dia, serviciosSegunPromocionYFecha);
         return serviciosSegunPromocionYFecha;
     }
 
-    public boolean agregarGastronomia(String codServicio, double porcentajeDescuento, boolean enPromocion, String gastronomia, double precio, int diaSemDesc, LocalDate diaServicio) throws CodigoInvalidoException, PrecioInvalidoException {
-        for (Servicio servicio : lstServicio) {
-            if (servicio.getCodServicio().equalsIgnoreCase(codServicio)) {
-                throw new CodigoInvalidoException("Este objeto Gastronomia ya existe.");
-            }
-        }
+   
+    // Metodos para agregar servicios: 
+    public boolean agregarGastronomia(String codServicio, double porcentajeDescuento, boolean enPromocion, String gastronomia, double precio, int diaSemDesc, LocalDate diaServicio) throws CodigoInvalidoException, PrecioInvalidoException, ArrayIndexOutOfBoundsException {
+        hayServicioRepetido(codServicio);
+        
         Gastronomia nuevaGastronomia = new Gastronomia(gastronomia, precio, diaSemDesc, codServicio, porcentajeDescuento, enPromocion, diaServicio);
         this.lstServicio.add(nuevaGastronomia);
-
         return true;
     }
 
-    public boolean agregarHospedaje(String codServicio, double porcentajeDescuento, boolean enPromocion, String hospedaje, double precioPorNoche, LocalDate diaServicio) throws CodigoInvalidoException, PrecioInvalidoException {
-        for (Servicio servicio : lstServicio) {
-            if (servicio.getCodServicio().equalsIgnoreCase(codServicio)) {
-                throw new CodigoInvalidoException("Este objeto Hospedaje ya existe.");
-            }
-        }
+
+    public boolean agregarHospedaje(String codServicio, double porcentajeDescuento, boolean enPromocion, String hospedaje, double precioPorNoche, LocalDate diaServicio) throws CodigoInvalidoException, PrecioInvalidoException, ArrayIndexOutOfBoundsException {
+        hayServicioRepetido(codServicio);
+        
         Hospedaje nuevoHospedaje = new Hospedaje(hospedaje, precioPorNoche, codServicio, porcentajeDescuento, enPromocion, diaServicio);
         this.lstServicio.add(nuevoHospedaje);
         return true;
@@ -80,6 +78,42 @@ public class Sistema {
         return lstServicio;
     }
 
+    
+    // Metodos auxiliares:
+    
+    public void hayServiciosEnSistema() throws ArrayIndexOutOfBoundsException {
+        if (lstServicio.isEmpty()) {
+            throw new ArrayIndexOutOfBoundsException("No hay servicios en el sistema.");
+        }
+    }
+    
+    // añadir servicios segun promocion a lista 
+    private void añadirServiciosEnPromocion(boolean enPromocion, ArrayList<Servicio> serviciosSegunPromocion) {
+        for (Servicio servicio : this.lstServicio) {
+            if (servicio.isEnPromocion() == enPromocion) {
+                serviciosSegunPromocion.add(servicio);
+            }
+        }
+    }
+    
+    // añadir servicios segun promocion y fecha a lista 
+    private void añadirServicioSegunPromocionYDia(boolean enPromocion, LocalDate dia, ArrayList<Servicio> serviciosSegunPromocionYFecha) {
+        for (Servicio servicio : this.lstServicio) {
+            if (servicio.isEnPromocion() == enPromocion && servicio.getDiaServicio().equals(dia)) {
+                serviciosSegunPromocionYFecha.add(servicio);
+            }
+        }
+    }
+    
+    // Buscar si hay servicio repetido
+    private void hayServicioRepetido(String codServicio) throws CodigoInvalidoException {
+        for (Servicio servicio : lstServicio) {
+            if (servicio.getCodServicio().equalsIgnoreCase(codServicio)) {
+                throw new CodigoInvalidoException("Este objeto Gastronomia ya existe.");
+            }
+        }
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

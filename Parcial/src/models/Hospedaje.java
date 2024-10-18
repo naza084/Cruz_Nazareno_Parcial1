@@ -6,6 +6,7 @@ package models;
 
 import exceptions.CodigoInvalidoException;
 import exceptions.PrecioInvalidoException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 /**
@@ -58,13 +59,16 @@ public class Hospedaje extends Servicio {
 
     // Metodo auxiliares para validar datos
     public void validarPrecioNoche(double precioPorNoche) throws PrecioInvalidoException {
+        // Verificacion de que el precio no sea negativo o menor a 1.0
         if (precioPorNoche < 1.0) {
             throw new PrecioInvalidoException("El precio por noche no puede ser 0 o negativo.");
         }
     }
 
     private boolean esDiaHabil(LocalDate dia) {
-        return dia.getDayOfWeek().getValue() >= 1 && dia.getDayOfWeek().getValue() <= 5;
+        // Se Obtiene el día de la semana y se verifica que no sea sabado ni domingo
+        DayOfWeek diaSemana = dia.getDayOfWeek(); 
+        return diaSemana != DayOfWeek.SATURDAY && diaSemana != DayOfWeek.SUNDAY; 
     }
 
     @Override
