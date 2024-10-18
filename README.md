@@ -68,4 +68,31 @@ El proyecto está compuesto por las siguientes clases y subclases:
    - `diaSemDesc`: Indica el dia de la semana en la que se aplica el descuento.
 - **Métodos**:
    - `calcularPrecioFinal()`: Aplica el porcentaje de descuento si está en promoción..
+  
+### 4. **Sistema**
+- **Atributos**:
+   - `lstServicio`: `List<Servicio>` - Lista de servicios disponibles.
 
+- **Métodos**:
+   - `traerServicio(String codServicio)`: Retorna el servicio correspondiente al código proporcionado.  
+     - **Excepciones**:  
+       - `ArrayIndexOutOfBoundsException`: Lanzada si no hay servicios en el sistema.
+       - `CodigoInvalidoException`: Lanzada si el código del servicio es inválido.
+     
+   - `traerServicio(boolean enPromocion)`: Retorna la lista de servicios según el parámetro `enPromocion`.  
+     - **Excepciones**:  
+       - `ArrayIndexOutOfBoundsException`: Lanzada si no hay servicios en el sistema.
+
+   - `traerServicio(boolean enPromocion, LocalDate dia)`: Retorna la lista de servicios según la fecha.  
+     - **Excepciones**:  
+       - `ArrayIndexOutOfBoundsException`: Lanzada si no hay servicios en el sistema.
+
+   - `agregarGastronomia(String codServicio, double porcentajeDescuento, boolean enPromocion, String gastronomia, double precio, int diaSemDesc, LocalDate diaServicio)`: Agrega un servicio de gastronomía, implementando excepción si el objeto ya existe.  
+     - **Excepciones**:  
+       - `CodigoInvalidoException`: Lanzada si el servicio ya existe en la lista con el mismo código.
+       - `PrecioInvalidoException`: Lanzada si el precio es negativo o inválido.
+
+   - `agregarHospedaje(String codServicio, double porcentajeDescuento, boolean enPromocion, String hospedaje, double precioPorNoche, LocalDate diaServicio)`: Agrega un servicio de hospedaje, implementando excepción si el objeto ya existe.  
+     - **Excepciones**:  
+       - `CodigoInvalidoException`: Lanzada si el servicio ya existe en la lista con el mismo código.
+       - `PrecioInvalidoException`: Lanzada si el precio por noche es negativo o inválido.
