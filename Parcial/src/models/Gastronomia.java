@@ -21,7 +21,7 @@ public class Gastronomia extends Servicio {
     public Gastronomia(String nombreGastronomia, double precio, int diaSemDesc, String codServicio, double porcentajeDescuento, boolean enPromocion, LocalDate diaServicio) throws CodigoInvalidoException, IllegalArgumentException, PrecioInvalidoException {
         super(codServicio, porcentajeDescuento, enPromocion, diaServicio);
         this.nombreGastronomia = nombreGastronomia;
-        
+
         validarDiaSemDesc(diaSemDesc);
         this.diaSemDesc = diaSemDesc;
 
@@ -34,10 +34,10 @@ public class Gastronomia extends Servicio {
         double precioFinal = this.precio;
 
         if (enPromocion && dia.getDayOfWeek().getValue() == this.diaSemDesc) {
-            double descuento = precio * (getPorcentajeDescuento() / 100);
+            double descuento = this.precio * (getPorcentajeDescuento() / 100);
             precioFinal -= descuento;
         }
-
+        
         return precioFinal;
     }
 
@@ -46,12 +46,12 @@ public class Gastronomia extends Servicio {
         this.nombreGastronomia = nombreGastronomia;
     }
 
-    public void setPrecio(double precio) throws PrecioInvalidoException{
+    public void setPrecio(double precio) throws PrecioInvalidoException {
         validarPrecio(precio);
         this.precio = precio;
     }
 
-    public void setDiaSemDesc(int diaSemDesc) throws IllegalArgumentException{
+    public void setDiaSemDesc(int diaSemDesc) throws IllegalArgumentException {
         validarDiaSemDesc(diaSemDesc);
         this.diaSemDesc = diaSemDesc;
     }
@@ -80,6 +80,21 @@ public class Gastronomia extends Servicio {
         if (dia < 0 || dia > 7) {
             throw new IllegalArgumentException("Dia de la semana invalido.");
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Gastronomia{");
+        sb.append("codServicio=").append(codServicio);
+        sb.append(", porcentajeDescuento=").append(porcentajeDescuento);
+        sb.append(", enPromocion=").append(enPromocion);
+        sb.append(", diaServicio=").append(diaServicio);
+        sb.append(", nombreGastronomia=").append(nombreGastronomia);
+        sb.append(", precio=").append(precio);
+        sb.append(", diaSemDesc=").append(diaSemDesc);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

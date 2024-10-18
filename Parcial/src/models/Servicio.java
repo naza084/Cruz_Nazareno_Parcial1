@@ -13,10 +13,10 @@ import java.time.LocalDate;
  */
 public abstract class Servicio {
 
-    private String codServicio;
-    private double porcentajeDescuento;
-    boolean enPromocion;
-    private LocalDate diaServicio;
+    protected String codServicio;
+    protected double porcentajeDescuento;
+    protected boolean enPromocion;
+    protected LocalDate diaServicio;
 
     public Servicio(String codServicio, double porcentajeDescuento, boolean enPromocion, LocalDate diaServicio) throws CodigoInvalidoException, IllegalArgumentException {
         validarCodigoServicio(codServicio);
@@ -24,7 +24,7 @@ public abstract class Servicio {
 
         this.porcentajeDescuento = porcentajeDescuento;
         this.enPromocion = enPromocion;
-        
+
         validarDiaServicio(diaServicio);
         this.diaServicio = diaServicio;
     }
@@ -47,16 +47,30 @@ public abstract class Servicio {
     public LocalDate getDiaServicio() {
         return diaServicio;
     }
-    
+
     // Metodo auxiliares para validar datos
     public void validarCodigoServicio(String codServicio) throws CodigoInvalidoException {
-        if (codServicio.length() != 5) {
-            throw new CodigoInvalidoException("El codigo de habitacion debe contener 5 caracteres exactos.");
+        if (codServicio.length() != 6) {
+            throw new CodigoInvalidoException("El codigo del servicio debe contener 5 caracteres exactos.");
         }
     }
+
     public void validarDiaServicio(LocalDate diaServicio) throws IllegalArgumentException {
         if (diaServicio.getDayOfWeek().getValue() < 0 || diaServicio.getDayOfWeek().getValue() > 7) {
             throw new IllegalArgumentException("Dia de servicio invalido.");
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Servicio{");
+        sb.append("codServicio=").append(codServicio);
+        sb.append(", porcentajeDescuento=").append(porcentajeDescuento);
+        sb.append(", enPromocion=").append(enPromocion);
+        sb.append(", diaServicio=").append(diaServicio);
+        sb.append('}');
+        return sb.toString();
+    }
+
 }

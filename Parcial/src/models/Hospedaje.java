@@ -20,12 +20,11 @@ public class Hospedaje extends Servicio {
     public Hospedaje(String nombreHospedaje, double precioPorNoche, String codServicio, double porcentajeDescuento, boolean enPromocion, LocalDate diaServicio) throws CodigoInvalidoException, IllegalArgumentException, PrecioInvalidoException {
         super(codServicio, porcentajeDescuento, enPromocion, diaServicio);
         this.nombreHospedaje = nombreHospedaje;
-        
+
         validarPrecioNoche(precioPorNoche);
         this.precioPorNoche = precioPorNoche;
     }
 
-    
     @Override
     public double calcularPrecioFinal(LocalDate dia) {
         double precioFinal = this.precioPorNoche;
@@ -63,8 +62,23 @@ public class Hospedaje extends Servicio {
             throw new PrecioInvalidoException("El precio por noche no puede ser 0 o negativo.");
         }
     }
+
     private boolean esDiaHabil(LocalDate dia) {
         return dia.getDayOfWeek().getValue() >= 1 && dia.getDayOfWeek().getValue() <= 5;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hospedaje{");
+        sb.append("codServicio=").append(codServicio);
+        sb.append(", porcentajeDescuento=").append(porcentajeDescuento);
+        sb.append(", enPromocion=").append(enPromocion);
+        sb.append(", diaServicio=").append(diaServicio);
+        sb.append(", nombreHospedaje=").append(nombreHospedaje);
+        sb.append(", precioPorNoche=").append(precioPorNoche);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

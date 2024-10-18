@@ -53,31 +53,40 @@ public class Sistema {
         return serviciosSegunPromocionYFecha;
     }
 
-    public boolean agregarGastronomia(String codServicio, double porcentajeDescuento, boolean enPromocion, String gastronomia, double precio, int diaSemDesc) throws CodigoInvalidoException, PrecioInvalidoException {
+    public boolean agregarGastronomia(String codServicio, double porcentajeDescuento, boolean enPromocion, String gastronomia, double precio, int diaSemDesc, LocalDate diaServicio) throws CodigoInvalidoException, PrecioInvalidoException {
         for (Servicio servicio : lstServicio) {
             if (servicio.getCodServicio().equalsIgnoreCase(codServicio)) {
                 throw new CodigoInvalidoException("Este objeto Gastronomia ya existe.");
             }
         }
-        Gastronomia nuevaGastronomia = new Gastronomia(gastronomia, precio, diaSemDesc, codServicio, porcentajeDescuento, enPromocion, LocalDate.now());
+        Gastronomia nuevaGastronomia = new Gastronomia(gastronomia, precio, diaSemDesc, codServicio, porcentajeDescuento, enPromocion, diaServicio);
         this.lstServicio.add(nuevaGastronomia);
 
         return true;
     }
 
-    public boolean agregarHospedaje(String codServicio, double porcentajeDescuento, boolean enPromocion, String hospedaje, double precioPorNoche) throws CodigoInvalidoException, PrecioInvalidoException{
+    public boolean agregarHospedaje(String codServicio, double porcentajeDescuento, boolean enPromocion, String hospedaje, double precioPorNoche, LocalDate diaServicio) throws CodigoInvalidoException, PrecioInvalidoException {
         for (Servicio servicio : lstServicio) {
             if (servicio.getCodServicio().equalsIgnoreCase(codServicio)) {
-                throw new CodigoInvalidoException("Este objeto Gastronomia ya existe.");
+                throw new CodigoInvalidoException("Este objeto Hospedaje ya existe.");
             }
         }
-        Hospedaje nuevoHospedaje = new Hospedaje(hospedaje, precioPorNoche, codServicio, porcentajeDescuento, enPromocion, LocalDate.now());
+        Hospedaje nuevoHospedaje = new Hospedaje(hospedaje, precioPorNoche, codServicio, porcentajeDescuento, enPromocion, diaServicio);
         this.lstServicio.add(nuevoHospedaje);
         return true;
     }
-    
+
     public ArrayList<Servicio> getLstServicio() {
         return lstServicio;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Sistema {");
+        sb.append("lstServicio=").append(lstServicio);
+        sb.append('}');
+        return sb.toString();
     }
 
 }
