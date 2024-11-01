@@ -32,8 +32,9 @@ public class Gastronomia extends Servicio {
     @Override
     public double calcularPrecioFinal(LocalDate dia) {
         double precioFinal = this.precio;
-
-        if (enPromocion && dia.getDayOfWeek().getValue() == this.diaSemDesc) {
+        
+        // Al empezar en 0 se resta -1 al valor para que coincida con el entero
+        if (enPromocion && dia.getDayOfWeek().getValue()-1 == this.diaSemDesc) {
             double descuento = this.precio * (getPorcentajeDescuento() / 100);
             precioFinal -= descuento;
         }
